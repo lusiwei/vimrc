@@ -1,33 +1,10 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Install L9 and avoid a Naming conflict if you've already installed a
-" different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-
-" All of your Plugins must be added before the following line
 Plugin 'yianwillis/vimcdoc'
 Plugin 'scrooloose/nerdtree' 
 Plugin 'mattn/emmet-vim'
@@ -35,27 +12,16 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-"
-"
 " 改变esc键
-"
 inoremap jk <esc>
 " emmet-vim插件设置
 let g:user_emmet_mode='inv'	" 三种模式下都可以使用
+let g:user_emmet_leader_key='<space>'
 " 只在html,css中使用
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
@@ -63,12 +29,18 @@ autocmd FileType html,css EmmetInstall
 let g:user_emmet_setting = {
 \	'indetation' : ' '
 \}
+" mokoka主题
+let g:molokai_original = 1
 set nu " 显示行号
 set relativenumber " 显示相对行号
 syntax on
 set tabstop=4
 set cursorline
 set cursorcolumn
+highlight CursorLine cterm=NONE ctermbg=red
+highlight CursorColumn cterm=NONE ctermbg=red
+set background=dark
+colorscheme solarized
 
 " 语法高亮
 autocmd BufReadPre *.js let b:javascript_lib_use_jquery = 1
@@ -77,3 +49,12 @@ autocmd BufReadPre *.js let b:javascript_lib_use_backbone = 1
 autocmd BufReadPre *.js let b:javascript_lib_use_prelude = 0
 autocmd BufReadPre *.js let b:javascript_lib_use_angularjs = 0
 
+" 自动补全
+if has("autocmd") && exists("+omnifunc")
+autocmd Filetype *
+\	if &omnifunc == "" |
+\		setlocal omnifunc=syntaxcomplete#Complete |
+\	endif
+endif
+
+" 设置leader键
